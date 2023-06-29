@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Locadora de Carros</title>
+</head>
+<body>
+  <h1>Locadora de Carros</h1>
+
+  <form id="aluguelForm">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" required><br>
+
+    <label for="modelo">Modelo:</label>
+    <input type="text" id="modelo" required><br>
+
+    <label for="dias">Dias de Locação:</label>
+    <input type="number" id="dias" min="1" required><br>
+
+    <button type="submit">Alugar</button>
+  </form>
+
+  <h2>Resumo do Aluguel</h2>
+  <div id="resumo"></div>
+
+  <script>
+    // Classe Carro
+    class Carro {
+      constructor(modelo, diaria) {
+        this.modelo = modelo;
+        this.diaria = diaria;
+      }
+    }
+
+    // Função para lidar com o envio do formulário
+    function handleFormSubmit(event) {
+      event.preventDefault(); // Impede o comportamento padrão do formulário
+
+      // Obter os valores dos campos do formulário
+      var nome = document.getElementById('nome').value;
+      var modelo = document.getElementById('modelo').value;
+      var dias = document.getElementById('dias').value;
+
+      // Criar objeto Carro
+      var carro = new Carro(modelo, 100); // Exemplo: Valor fixo para a diária
+
+      // Calcular o valor total do aluguel
+      var valorTotal = carro.diaria * dias;
+
+      // Exibir o resumo do aluguel
+      var resumo = 'Nome: ' + nome + '<br>';
+      resumo += 'Modelo: ' + carro.modelo + '<br>';
+      resumo += 'Dias de Locação: ' + dias + '<br>';
+      resumo += 'Valor Total: R$ ' + valorTotal.toFixed(2) + '<br>';
+
+      document.getElementById('resumo').innerHTML = resumo;
+
+      // Limpar os campos do formulário
+      document.getElementById('aluguelForm').reset();
+    }
+
+    // Adicionar um ouvinte de evento para o envio do formulário
+    var form = document.getElementById('aluguelForm');
+    form.addEventListener('submit', handleFormSubmit);
+  </script>
+</body>
+</html>
